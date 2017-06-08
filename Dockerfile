@@ -1,4 +1,4 @@
-FROM php:7.1.3-fpm-alpine
+FROM php:7.1.5-fpm-alpine
 
 MAINTAINER ngineered <support@ngineered.co.uk>
 
@@ -185,6 +185,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
 #    ln -s /usr/bin/php7 /usr/bin/php
 
 ADD conf/supervisord.conf /etc/supervisord.conf
+ADD conf/supervisord.d /etc/supervisord.d
 
 # Copy our nginx config
 RUN rm -Rf /etc/nginx/nginx.conf
@@ -227,17 +228,21 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
 
 # Add Scripts
 ADD scripts/start.sh /start.sh
-ADD scripts/pull /usr/bin/pull
-ADD scripts/push /usr/bin/push
 ADD scripts/letsencrypt-setup /usr/bin/letsencrypt-setup
 ADD scripts/letsencrypt-renew /usr/bin/letsencrypt-renew
-RUN chmod 755 /usr/bin/pull && chmod 755 /usr/bin/push && chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew && chmod 755 /start.sh
+RUN chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew && chmod 755 /start.sh
 
-# copy in code
-ADD src/ /var/www/html/
-ADD errors/ /var/www/errors
+# https://github.com/docker-library/php/issues/207
+# set to stdout.sock to be parsed by supervisor
+# BE AWARE THAT IT WILL BLOCK WRITES IF YOU DON'T READ THE CONTENT! (hence the default is file)
+#ENV LOG_STREAM="/tmp/stdout.sock"
+ENV LOG_STREAM="/tmp/stdout.log"
+RUN mkfifo /tmp/stdout.sock && chmod 777 /tmp/stdout.sock
 
 VOLUME /var/www/html
+
+# this will be the default in the log laravel lib from above 1.0.2
+ENV LOG_STREAM php://stdout
 
 EXPOSE 443 80
 

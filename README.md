@@ -63,3 +63,21 @@ For more detailed examples and explanations please refer to the documentation.
 ## Guides
 - [Running in Kubernetes](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/guides/kubernetes.md)
 - [Using Docker Compose](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/guides/docker_compose.md)
+
+
+## Notes
+
+This container is for nginx-fpm image. It includes workaround needed for proper logging from php-fpm. See:
+https://github.com/docker-library/php/issues/207
+https://bugs.php.net/bug.php?id=71880
+
+https://hub.docker.com/r/proemergotech/nginx-php-fpm/
+
+Build (when changed):
+
+```
+docker build -t proemergotech/nginx-php-fpm:1.2.1-r1 .
+docker login
+...
+docker push proemergotech/nginx-php-fpm:1.2.1-r1
+```
