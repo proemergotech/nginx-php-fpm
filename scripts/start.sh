@@ -86,6 +86,8 @@ SCRIPTS_ROOT_DIR="/bootstrap.d"
 if [ -d "$SCRIPTS_ROOT_DIR" ]; then
     # make scripts executable incase they aren't
     chmod -Rf 750 $SCRIPTS_ROOT_DIR/*
+    # workaround for https://github.com/moby/moby/issues/9547
+    sync
     # run scripts in number order
     for i in `ls $SCRIPTS_ROOT_DIR`; do $SCRIPTS_ROOT_DIR/$i ; done
 else
