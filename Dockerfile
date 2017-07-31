@@ -1,4 +1,4 @@
-FROM php:7.1.6-fpm-alpine
+FROM php:7.1.7-fpm-alpine
 
 MAINTAINER ngineered <support@ngineered.co.uk>
 
@@ -6,7 +6,7 @@ ENV php_conf /usr/local/etc/php-fpm.conf
 ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
 ENV php_vars /usr/local/etc/php/conf.d/docker-vars.ini
 
-ENV NGINX_VERSION 1.13.1
+ENV NGINX_VERSION 1.13.2
 
 RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
   && CONFIG="\
@@ -239,7 +239,6 @@ RUN chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew
 ENV LOG_STREAM="/tmp/stdout.log"
 RUN mkfifo /tmp/stdout.sock && chmod 777 /tmp/stdout.sock
 
-VOLUME /var/www/html
 
 # this will be the default in the log laravel lib from above 1.0.2
 ENV LOG_STREAM php://stdout
