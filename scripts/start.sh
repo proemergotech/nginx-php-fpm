@@ -94,5 +94,10 @@ else
     echo "Can't find script directory"
 fi
 
+if [ ! -z "$METRICS_NET" ]; then
+    sed "s#%METRICS_NET%#$METRICS_NET#" /templates/prometheus_metrics.conf.template > /etc/nginx/sites-enabled/99_prometheus_metrics.conf
+    cp /templates/00_prometheus_lua.conf /etc/nginx/conf.d/
+fi
+
 # Start supervisord and services
 exec /usr/bin/supervisord -n -c /etc/supervisord.conf

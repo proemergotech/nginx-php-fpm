@@ -8,6 +8,12 @@ ENV php_vars /usr/local/etc/php/conf.d/docker-vars.ini
 
 ENV NGINX_VERSION 1.13.2
 
+ENV DEVEL_KIT_MODULE_VERSION 0.3.0
+ENV LUA_MODULE_VERSION 0.10.9rc8
+
+ENV LUAJIT_LIB=/usr/lib
+ENV LUAJIT_INC=/usr/include/luajit-2.0
+
 RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
   && CONFIG="\
     --prefix=/etc/nginx \
@@ -54,6 +60,8 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     --with-compat \
     --with-file-aio \
     --with-http_v2_module \
+    --add-module=/usr/src/ngx_devel_kit-$DEVEL_KIT_MODULE_VERSION \
+    --add-module=/usr/src/lua-nginx-module-$LUA_MODULE_VERSION \
   " \
   && addgroup -S nginx \
   && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
@@ -71,8 +79,11 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     gd-dev \
     geoip-dev \
     perl-dev \
+    luajit-dev \
   && curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -o nginx.tar.gz \
   && curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc  -o nginx.tar.gz.asc \
+  && curl -fSL https://github.com/simpl/ngx_devel_kit/archive/v$DEVEL_KIT_MODULE_VERSION.tar.gz -o ndk.tar.gz \
+  && curl -fSL https://github.com/openresty/lua-nginx-module/archive/v$LUA_MODULE_VERSION.tar.gz -o lua.tar.gz \
   && export GNUPGHOME="$(mktemp -d)" \
   && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEYS" \
   && gpg --batch --verify nginx.tar.gz.asc nginx.tar.gz \
@@ -80,6 +91,9 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
   && mkdir -p /usr/src \
   && tar -zxC /usr/src -f nginx.tar.gz \
   && rm nginx.tar.gz \
+  && tar -zxC /usr/src -f ndk.tar.gz \
+  && tar -zxC /usr/src -f lua.tar.gz \
+  && rm ndk.tar.gz lua.tar.gz \
   && cd /usr/src/nginx-$NGINX_VERSION \
   && ./configure $CONFIG --with-debug \
   && make -j$(getconf _NPROCESSORS_ONLN) \
@@ -232,6 +246,9 @@ ADD scripts/letsencrypt-setup /usr/bin/letsencrypt-setup
 ADD scripts/letsencrypt-renew /usr/bin/letsencrypt-renew
 RUN chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew && chmod 755 /start.sh
 
+ADD templates /templates
+ADD lua /lua
+
 # https://github.com/docker-library/php/issues/207
 # set to stdout.sock to be parsed by supervisor
 # BE AWARE THAT IT WILL BLOCK WRITES IF YOU DON'T READ THE CONTENT! (hence the default is file)
@@ -239,10 +256,9 @@ RUN chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew
 ENV LOG_STREAM="/tmp/stdout.log"
 RUN mkfifo /tmp/stdout.sock && chmod 777 /tmp/stdout.sock
 
-
 # this will be the default in the log laravel lib from above 1.0.2
 ENV LOG_STREAM php://stdout
 
-EXPOSE 443 80
+EXPOSE 443 80 9145
 
 CMD ["/start.sh"]

@@ -65,7 +65,7 @@ For more detailed examples and explanations please refer to the documentation.
 - [Using Docker Compose](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/guides/docker_compose.md)
 
 
-## Notes
+## Notes for this fork
 
 This container is for nginx-fpm image. It includes workaround needed for proper logging from php-fpm. See:
 https://github.com/docker-library/php/issues/207
@@ -73,11 +73,15 @@ https://bugs.php.net/bug.php?id=71880
 
 https://hub.docker.com/r/proemergotech/nginx-php-fpm/
 
-Build (when changed):
+### Prometheus Exporter for nginx (see: https://github.com/knyar/nginx-lua-prometheus and https://github.com/ilagnev/docker-alpine-nginx-lua/commit/b3c728df99eecbb5256e31b58420eead521e7fe8 )
+
+Set METRICS_NET env to enable this feature on 9145 port! Hosts allowed by this env, for example: 10.0.0.0/8
+
+### Build (when changed):
 
 ```
-docker build -t proemergotech/nginx-php-fpm:1.2.1-r1 .
+docker build -t proemergotech/nginx-php-fpm:1.2.5-rc1 .
 docker login
 ...
-docker push proemergotech/nginx-php-fpm:1.2.1-r1
+docker push proemergotech/nginx-php-fpm:1.2.5-rc1
 ```
