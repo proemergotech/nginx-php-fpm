@@ -10,7 +10,7 @@ If you have improvements or suggestions please open an issue or pull request on 
 ### Versioning
 | Docker Tag | GitHub Release | Nginx Version | PHP Version | Alpine Version |
 |-----|-------|-----|--------|--------|
-| latest | Master Branch |1.13.2 | 7.1.7 | 3.4 |
+| latest | Master Branch |1.13.4 | 7.1.8 | 3.4 |
 
 For other tags please see: [versioning](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/versioning.md)
 
@@ -58,6 +58,7 @@ For more detailed examples and explanations please refer to the documentation.
  - [Setup](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/lets_encrypt.md#setup)
  - [Renewal](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/lets_encrypt.md#renewal)
 - [PHP Modules](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/php_modules.md)
+- [Xdebug](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/xdebug.md)
 - [Logging and Errors](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/logs.md)
 
 ## Guides
