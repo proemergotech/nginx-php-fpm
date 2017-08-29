@@ -90,8 +90,6 @@ if [ -d "$SCRIPTS_ROOT_DIR" ]; then
     sync
     # run scripts in number order
     for i in `ls $SCRIPTS_ROOT_DIR`; do $SCRIPTS_ROOT_DIR/$i ; done
-else
-    echo "Can't find script directory"
 fi
 
 if [ ! -z "$METRICS_NET" ]; then
