@@ -137,16 +137,16 @@ if [ ! -z "$METRICS_NET" ]; then
     cp /templates/00_prometheus_lua.conf /etc/nginx/conf.d/
 fi
 
-# Try auto install for composer
-if [ -f "/var/www/html/composer.lock" ]; then
-    if [ "$APPLICATION_ENV" == "development" ]; then
-        composer global require hirak/prestissimo
-        composer install --working-dir=/var/www/html
-    else
-        composer global require hirak/prestissimo
-        composer install --no-dev --working-dir=/var/www/html
-    fi
-fi
+## Try auto install for composer
+#if [ -f "/var/www/html/composer.lock" ]; then
+#    if [ "$APPLICATION_ENV" == "development" ]; then
+#        composer global require hirak/prestissimo
+#        composer install --working-dir=/var/www/html
+#    else
+#        composer global require hirak/prestissimo
+#        composer install --no-dev --working-dir=/var/www/html
+#    fi
+#fi
 
 # Start supervisord and services
 exec /usr/bin/supervisord -n -c /etc/supervisord.conf

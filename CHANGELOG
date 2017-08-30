@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.8] - 2017-08-30
+### Changed
+- disable composer install on container start
+
 ## [1.2.7] - 2017-08-29
 ### Changed
 - nginx error log level changed from "info" to "notice" to get rid "closed keepalive connection" messages in the log
