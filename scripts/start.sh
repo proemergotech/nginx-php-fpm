@@ -135,6 +135,9 @@ fi
 if [ ! -z "$METRICS_NET" ]; then
     sed "s#%METRICS_NET%#$METRICS_NET#" /templates/prometheus_metrics.conf.template > /etc/nginx/sites-enabled/99_prometheus_metrics.conf
     cp /templates/00_prometheus_lua.conf /etc/nginx/conf.d/
+
+    # php-fpm status for monitoring pusposes (.php because php-fpm serves only .php extension for security)
+    echo "pm.status_path = /fpm-status.php" >> /usr/local/etc/php-fpm.d/www.conf
 fi
 
 ## Try auto install for composer

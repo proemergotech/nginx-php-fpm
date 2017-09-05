@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.10] - 2017-09-05
+### Changed
+- Added nginx:9145/fpm-status.php for monitoring (when METRICS_NET is set)
+
 ## [1.2.8] - 2017-08-30
 ### Changed
 - disable composer install on container start

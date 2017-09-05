@@ -81,8 +81,8 @@ Set METRICS_NET env to enable this feature on 9145 port! Hosts allowed by this e
 ### Build (when changed):
 
 ```
-docker build -t proemergotech/nginx-php-fpm:1.2.5-rc1 .
+docker build -t proemergotech/nginx-php-fpm:1.2.10 .
 docker login
 ...
-docker push proemergotech/nginx-php-fpm:1.2.5-rc1
+docker push proemergotech/nginx-php-fpm:1.2.10
 ```
