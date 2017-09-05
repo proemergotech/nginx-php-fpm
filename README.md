@@ -78,11 +78,21 @@ https://hub.docker.com/r/proemergotech/nginx-php-fpm/
 
 Set METRICS_NET env to enable this feature on 9145 port! Hosts allowed by this env, for example: 10.0.0.0/8
 
+### Php-fpm status exporter
+
+Go binary is built in the https://github.com/softonic/phpfpm_exporter
+
+We simply copy the built image to this repo for making it simple for now. We should use go to build it or use external container which is not appropriate for multi replica monitoring.
+
+Use pull_php-fpm-exporter-from-container.sh to update the binary.
+
+This go binary works with alpine only a lib should be linked from other path (see Dockerfile)
+
 ### Build (when changed):
 
 ```
-docker build -t proemergotech/nginx-php-fpm:1.2.10 .
+docker build -t proemergotech/nginx-php-fpm:1.2.11 .
 docker login
 ...
-docker push proemergotech/nginx-php-fpm:1.2.10
+docker push proemergotech/nginx-php-fpm:1.2.11
 ```

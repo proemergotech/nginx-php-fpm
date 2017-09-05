@@ -137,7 +137,8 @@ if [ ! -z "$METRICS_NET" ]; then
     cp /templates/00_prometheus_lua.conf /etc/nginx/conf.d/
 
     # php-fpm status for monitoring pusposes (.php because php-fpm serves only .php extension for security)
-    echo "pm.status_path = /fpm-status.php" >> /usr/local/etc/php-fpm.d/www.conf
+    echo "pm.status_path = /fpm-status.php" >> ${fpm_conf}
+    mv /etc/supervisord.d/phpfpm_exporter.conf.disabled /etc/supervisord.d/phpfpm_exporter.conf
 fi
 
 ## Try auto install for composer

@@ -260,11 +260,14 @@ RUN chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew
 ADD templates /templates
 ADD lua /lua
 
+# dependency for go binary. https://stackoverflow.com/questions/34729748/installed-go-binary-not-found-in-path-on-alpine-linux-docker
+RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
+ADD phpfpm_exporter /phpfpm_exporter
+
 # https://github.com/docker-library/php/issues/207
 # set to stdout.sock to be parsed by supervisor
 # BE AWARE THAT IT WILL BLOCK WRITES IF YOU DON'T READ THE CONTENT! (hence the default is file)
 #ENV LOG_STREAM="/tmp/stdout.sock"
-ENV LOG_STREAM="/tmp/stdout.log"
 RUN mkfifo /tmp/stdout.sock && chmod 777 /tmp/stdout.sock
 
 # this will be the default in the log laravel lib from above 1.0.2

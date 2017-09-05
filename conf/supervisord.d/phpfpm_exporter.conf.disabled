@@ -1,0 +1,10 @@
+[program:phpfpm_exporter]
+
+command=/phpfpm_exporter -status.url=http://localhost:9145/fpm-status.php?json -listen.address 0.0.0.0:9099
+autostart=true
+autorestart=true
+priority=5
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/stderr
+stderr_logfile_maxbytes=0
