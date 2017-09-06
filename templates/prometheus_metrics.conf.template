@@ -1,5 +1,6 @@
 server {
   listen 9145;
+  allow 127.0.0.1;# always enabled for phpfpm_exporter
   allow %METRICS_NET%;
   deny all;
   location /metrics {

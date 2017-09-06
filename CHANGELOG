@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.13] - not released yet
+### Changed
+- /etc/supervisor.d directory changed to /etc/supervisor/conf.d to follow upstream convention
+
+## [1.2.12] - 2017-09-05
+### Changed
+- 127.0.0.1 always enabled for metrics
+
 ## [1.2.11] - 2017-09-05
 ### Changed
 - Added phpfpm_exporter go binary and supervisor config to run it if METRICS_NET is set.

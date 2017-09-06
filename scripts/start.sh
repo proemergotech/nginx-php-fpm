@@ -138,7 +138,7 @@ if [ ! -z "$METRICS_NET" ]; then
 
     # php-fpm status for monitoring pusposes (.php because php-fpm serves only .php extension for security)
     echo "pm.status_path = /fpm-status.php" >> ${fpm_conf}
-    mv /etc/supervisord.d/phpfpm_exporter.conf.disabled /etc/supervisord.d/phpfpm_exporter.conf
+    mv /etc/supervisor/conf.d/phpfpm_exporter.conf.disabled /etc/supervisor/conf.d/phpfpm_exporter.conf
 fi
 
 ## Try auto install for composer
