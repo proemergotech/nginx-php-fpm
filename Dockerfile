@@ -205,12 +205,13 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     php -r "unlink('composer-setup.php');"  && \
     pip install -U pip && \
     pip install -U certbot && \
-    mkdir -p /etc/letsencrypt/webrootauth && \
+#    mkdir -p /etc/letsencrypt/webrootauth && \
     apk del gcc musl-dev linux-headers libffi-dev augeas-dev python-dev make autoconf
 #    ln -s /usr/bin/php7 /usr/bin/php
 
 ADD conf/supervisord.conf /etc/supervisord.conf
 ADD conf/supervisor/conf.d/* /etc/supervisor/conf.d/
+ADD conf/openssl.cnf /etc/ssl/
 
 # Copy our nginx config
 RUN rm -Rf /etc/nginx/nginx.conf
@@ -253,9 +254,9 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
 
 # Add Scripts
 ADD scripts/start.sh /start.sh
-ADD scripts/letsencrypt-setup /usr/bin/letsencrypt-setup
-ADD scripts/letsencrypt-renew /usr/bin/letsencrypt-renew
-RUN chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew && chmod 755 /start.sh
+#ADD scripts/letsencrypt-setup /usr/bin/letsencrypt-setup
+#ADD scripts/letsencrypt-renew /usr/bin/letsencrypt-renew
+#RUN chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew && chmod 755 /start.sh
 
 ADD templates /templates
 ADD lua /lua

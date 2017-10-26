@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.14] - 2017-10-26
+### Added
+- openssl.cnf for openssl_pkey_new() php function to work. The config file is copied from an Ubuntu 17.04 system install.
+
 ## [1.2.13] - 2017-09-07
 ### Changed
 - /etc/supervisor.d directory changed to /etc/supervisor/conf.d to follow upstream convention
