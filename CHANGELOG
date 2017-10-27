@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.15] - 2017-10-26
+### Fixed
+- broken start.sh
+
 ## [1.2.14] - 2017-10-26
 ### Added
 - openssl.cnf for openssl_pkey_new() php function to work. The config file is copied from an Ubuntu 17.04 system install.

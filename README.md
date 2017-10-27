@@ -91,8 +91,8 @@ This go binary works with alpine only a lib should be linked from other path (se
 ### Build (when changed):
 
 ```
-docker build -t proemergotech/nginx-php-fpm:1.2.14 .
+docker build -t proemergotech/nginx-php-fpm:1.2.15 .
 docker login
 ...
-docker push proemergotech/nginx-php-fpm:1.2.14
+docker push proemergotech/nginx-php-fpm:1.2.15
 ```
