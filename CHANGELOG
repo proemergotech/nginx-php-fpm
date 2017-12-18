@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.16] - 2017-12-18
+### Added
+- php gmp extension (for JWT)
+
 ## [1.2.15] - 2017-10-26
 ### Fixed
 - broken start.sh
