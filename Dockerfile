@@ -184,6 +184,8 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     libffi-dev \
     freetype-dev \
     sqlite-dev \
+    gmp \
+    gmp-dev \
     libjpeg-turbo-dev && \
     docker-php-ext-configure gd \
       --with-gd \
